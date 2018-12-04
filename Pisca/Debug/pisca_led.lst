@@ -1,0 +1,224 @@
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 1  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm
+
+   1                             st7/      
+   2                             ;* ----------------------------  (c) 2008 Soniclear  
+                                 ;------------------------ */
+   3                             ;*************************************************************
+                                 ;*****************/
+   4                             ;* Include file provided with ST7 assembler describing the 
+                                 ;registers mapping. */
+<END_OF_INCLUSION>
+   8  0000                                 
+   9                                       
+  10  0000                                 WORDS                  ;define following addresses as 
+                                                                  ;long
+  11                                       segment  byte at 80-BF 'ram0'
+  12                             
+  13  0080                       .temp     DS.B     1             ;define 1 byte para a variável 
+                                                                  ;temp
+  14                                                              ;esta variável está localizada 
+                                                                  ;no endereço 80h
+  15  0081                       .temp2    DS.B     1             ;define 1 byte para a variável 
+                                                                  ;temp2
+  16                                                              ;esta variável está localizada 
+                                                                  ;no endereço 81h
+  17  0082                       .tempo    DS.B     1             ;define 1 byte para a variável 
+                                                                  ;tempo
+  18                                                              ;esta variável está localizada 
+                                                                  ;no endereço 82h
+  19  0083                                 WORDS    
+  20                                       segment  byte at FC00-FFDF 'rom'
+  21                                       
+  22                             main      
+  23                             
+  24                             ;Configure PTA3 as general purpose output.
+  25  FC00   A655                          ld       A,            #$55
+  26  FC02   B747                          ld       MUXCR0,A
+  27  FC04   A6AA                          ld       A,            #$AA
+  28  FC06   B748                          ld       MUXCR1,A
+  29                             ;Configures port A0/1/2/3/4 as output and A5 as input.
+  30  FC08   A61F                          ld       A,#%00011111
+  31  FC0A   B701                          ld       PADDR,A
+  32                             ;Configures inputs as floating and output as open drain
+  33  FC0C   4F                            clr      A             ; A=00h
+  34  FC0D   B702                          ld       PAOR,A
+  35                             
+  36                             ;*************************************************************
+                                 ;*****************/
+  37                             ;*										Aqui começa o código do programa												*/
+  38                             ;*************************************************************
+                                 ;*****************/
+  39                             
+  40                             principal  
+  41                                                              ;desvia para teclapres se o bit 
+                                                                  ;5 estiver em 0
+  42  FC0F   0B0007                        btjf     PADR,#5,teclapres
+  43  FC12   A651                          ld       A,            #$51
+  44  FC14   B782                          ld       tempo,A
+  45  FC16   CCFC1D                        jp       continua
+  46                             teclapres  
+  47  FC19   A626                          ld       A,            #$26
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 2  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm
+
+  48  FC1B   B782                          ld       tempo,A
+  49                             continua  
+  50  FC1D   1100                          bres     PADR,#0
+  51  FC1F   CDFC29                        call     atraso
+  52  FC22   1000                          bset     PADR,#0
+  53  FC24   CDFC29                        call     atraso
+  54  FC27   20E6                          jra      principal
+  55                                       
+  56                             ;*************************************************************
+                                 ;*****************/
+  57                             ;* A sub-rotina de atraso abaixo irá fazer com que a CPU gaste
+                                 ; um certo tempo */
+  58                             ;* de forma que o led permaneça aceso ou apagado durante este 
+                                 ;período					*/
+  59                             ;*************************************************************
+                                 ;*****************/
+  60                             atraso    
+  61  FC29   B682                          ld       A,tempo       ;Copia o tempo desejado para 
+                                                                  ;temp2
+  62  FC2B   B781                          ld       temp2,A
+  63  FC2D   4F                            clr      A
+  64                             loop1     
+  65  FC2E   A632                          ld       A,            #$32
+  66  FC30   B780                          ld       temp,A
+  67  FC32   3A81                          dec      temp2         ;dec temp2
+  68  FC34   2601                          jrne     loop2
+  69                                       
+  70  FC36   81                            ret      
+  71                             loop2     
+  72  FC37   4A                            dec      A             ;decrementa A até que o mesmo 
+                                                                  ;chegue a zero
+  73  FC38   26FD                          jrne     loop2
+  74  FC3A   21FB                          jrf      loop2         ;gasta 3 ciclos
+  75  FC3C   21F9                          jrf      loop2         ;gasta 3 ciclos
+  76  FC3E   9D                            nop                    ;gasta 1 ciclo
+  77  FC3F   9D                            nop                    ;gasta 1 ciclo
+  78  FC40   A632                          ld       A,            #$32   ; ************* ADD
+  79  FC42   3A80                          dec      temp          ;decrementa temp e retorna para 
+                                                                  ;loop2 até que
+  80  FC44   26F1                          jrne     loop2         ;temp = 0
+  81                                       
+  82  FC46   20E6                          jra      loop1
+  83                                       
+  84                             ;*************************************************************
+                                 ;*****************/
+  85                             
+  86                             ;+------------------------------------------------------------
+                                 ;----------------+
+  87                             ;|	INTERRUPT SUB-ROUTINES SECTION																						|
+  88                             ;+------------------------------------------------------------
+                                 ;----------------+
+  89  FC48                                 interrupt NonHandledInterrupt
+  90                             NonHandledInterrupt  
+  91                             ;In order to detect unexpected events during development,
+  92                             ;it is recommended to set a breakpoint on the following 
+                                 ;instruction
+  93  FC48   80                            iret                   ;Returns from interrupts
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 3  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm
+
+  94                             
+  95                             ;+------------------------------------------------------------
+                                 ;----------------+
+  96                             ;| INTERRUPT VECTORS MAPPING																									|
+  97                             ;+------------------------------------------------------------
+                                 ;----------------+
+  98                             
+  99                                       segment  byte at FFE0-FFFF 'vectors'
+ 100                             
+ 101  FFE0   FC48                          DC.W     NonHandledInterrupt   ;FFE0-FFE1h
+ 102  FFE2   FC48                          DC.W     NonHandledInterrupt   ;FFE2-FFE3h
+ 103  FFE4   FC48                          DC.W     NonHandledInterrupt   ;FFE4-FFE5h
+ 104  FFE6   FC48                          DC.W     NonHandledInterrupt   ;FFE6-FFE7h
+ 105  FFE8   FC48                          DC.W     NonHandledInterrupt   ;FFE8-FFE9h
+ 106  FFEA   FC48                          DC.W     NonHandledInterrupt   ;FFEA-FFEBh
+ 107  FFEC   FC48                          DC.W     NonHandledInterrupt   ;FFEC-FFEDh
+ 108  FFEE   FC48                          DC.W     NonHandledInterrupt   ;FFEE-FFEFh
+ 109  FFF0   FC48                          DC.W     NonHandledInterrupt   ;FFF0-FFF1h
+ 110  FFF2   FC48                          DC.W     NonHandledInterrupt   ;FFF2-FFF3h
+ 111  FFF4   FC48                          DC.W     NonHandledInterrupt   ;FFF4-FFF5h
+ 112  FFF6   FC48                          DC.W     NonHandledInterrupt   ;FFF6-FFF7h
+ 113  FFF8   FC48                          DC.W     NonHandledInterrupt   ;FFF8-FFF9h
+ 114  FFFA   FC48                          DC.W     NonHandledInterrupt   ;FFFA-FFFBh
+ 115  FFFC   FC48                          DC.W     NonHandledInterrupt   ;FFFC-FFFDh
+ 116  FFFE   FC00                          DC.W     main          ;FFFE-FFFFh
+ 117                             
+ 118  0000                                 END      
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 4  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm
+
+Symbol Name                       Value     Call       Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+ATCSR                                   0D         no  BYTE  Internal   ABS     65  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+ATRH                                    10         no  BYTE  Internal   ABS     82  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+ATRL                                    11         no  BYTE  Internal   ABS     84  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+ADCCSR                                  34         no  BYTE  Internal   ABS    108  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+ADCDRH                                  35         no  BYTE  Internal   ABS    123  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+ADCDRL                                  36         no  BYTE  Internal   ABS    142  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+AVDTHCR                                 3E         no  BYTE  Internal   ABS    219  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+AWUPR                                   49         no  BYTE  Internal   ABS    254  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+AWUCSR                                  4A         no  BYTE  Internal   ABS    273  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+CNTRH                                   0E         no  BYTE  Internal   ABS     78  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+CNTRL                                   0F         no  BYTE  Internal   ABS     80  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+CKCNTCSR                                3F         no  BYTE  Internal   ABS    234  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+DCR0H                                   17         no  BYTE  Internal   ABS     96  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+DCR0L                                   18         no  BYTE  Internal   ABS     98  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+EICR1                                   37         no  BYTE  Internal   ABS    154  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+EICR2                                   3D         no  BYTE  Internal   ABS    204  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+FCSR                                    2F         no  BYTE  Internal   ABS    103  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+LTCSR                                   0B         no  BYTE  Internal   ABS     25  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+LTICR                                   0C         no  BYTE  Internal   ABS     43  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+MCCSR                                   38         no  BYTE  Internal   ABS    174  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+MUXCR0                                  47         no  BYTE  Internal   ABS    247  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+MUXCR1                                  48         no  BYTE  Internal   ABS    249  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+NonHandledInterrupt                   FC48  interrupt  WORD  Internal   ABS     90  private  text         1     0  -
+
+PADR                                    00         no  BYTE  Internal   ABS     16  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+PADDR                                   01         no  BYTE  Internal   ABS     18  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+PAOR                                    02         no  BYTE  Internal   ABS     20  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+PWMCR                                   12         no  BYTE  Internal   ABS     86  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+PWM0CSR                                 13         no  BYTE  Internal   ABS     90  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+RCCR                                    39         no  BYTE  Internal   ABS    183  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+SICSR                                   3A         no  BYTE  Internal   ABS    188  private  data         0     0  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\ST7FLITEUS5.INC
+
+atraso                                FC29         no  WORD  Internal   ABS     60  private  text         5     0  -
+
+continua                              FC1D         no  WORD  Internal   ABS     49  private  text        12     0  -
+
+loop1                                 FC2E         no  WORD  Internal   ABS     64  private  text         9     0  -
+loop2                                 FC37         no  WORD  Internal   ABS     71  private  text        17     0  -
+
+main                                  FC00         no  WORD  Internal   ABS     22  private  text        15     0  -
+
+principal                             FC0F         no  WORD  Internal   ABS     40  private  text        10     0  -
+
+temp                                  0080         no  WORD  Internal   ABS     13  public   bss          1     1  -
+temp2                                 0081         no  WORD  Internal   ABS     15  public   bss          1     1  -
+tempo                                 0082         no  WORD  Internal   ABS     17  public   bss          1     1  -
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 5  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm
+
+teclapres                             FC19         no  WORD  Internal   ABS     46  private  text         4     0  -
+
+
+40 labels
+No errors on assembly of 'c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm'

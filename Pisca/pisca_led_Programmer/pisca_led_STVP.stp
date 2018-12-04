@@ -1,0 +1,18 @@
+[Last Settings]
+Hardware=RLINK
+PROTOCOL=ICP OPT Disable
+Port=USB
+DEVICE=ST7FLITEUS2/S5
+Protect RC Calibration values on Program Memory=1
+Verify after programming=1
+Blank check before programming (when available)=0
+Erase device memory before programming (when available)=1
+Unlock protection before a programming cycle=1
+[PROGRAM MEMORY]
+Count=1
+File0=C:\Documents and Settings\Luciano Silva\Meus documentos\Soniclear\Arquivos\D001\Software\nebul_fw_autocal_N.s19
+ProgramEvenIfBlank=0
+[OPTION BYTE]
+Count=1
+File0=C:\Documents and Settings\Luciano Silva\Meus documentos\Soniclear\ST7\Pisca\pisca_led_Programmer\pisca_led_STVP_OPTION BYTE.hex
+ProgramEvenIfBlank=0

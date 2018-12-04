@@ -1,0 +1,72 @@
+
+Segment List
+------------
+
+c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm[1]   11-   19        80 -       82                 'ram0'  [void]
+c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm[2]   20-   98      FC00 -     FC48                 'rom'  [text]
+c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm[3]   99-  117      FFE0 -     FFFF                 'vectors'  [data]
+c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm[1]   11-   90         0 -       4A                 'periph'  [void]
+
+
+Class List
+----------
+
+0 '        ram0'   byte from       80 to       82 (lim       BF) =  3% D
+0 '       stack'   byte from       C0 to       BF (lim       FF) =  0% V
+0 '         rom'   byte from     FC00 to     FC48 (lim     FFDF) =  7% C
+0 '      vectit'   byte from     FFE0 to     FFDF (lim     FFFF) =  0% V
+0 '     vectors'   byte from     FFE0 to     FFFF (lim     FFFF) =100% S
+0 '      periph'   byte from        0 to       4A (lim       7F) = 58% D
+
+
+
+External Label list
+-------------------
+
+Symbol Name                       Value     Scope  Def(line)
+
+ATCSR                                   0D  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(28)
+ATRH                                    10  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(31)
+ATRL                                    11  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(32)
+ADCCSR                                  34  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(47)
+ADCDRH                                  35  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(48)
+ADCDRL                                  36  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(49)
+AVDTHCR                                 3E  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(74)
+AWUPR                                   49  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(88)
+AWUCSR                                  4A  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(89)
+
+CNTRH                                   0E  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(29)
+CNTRL                                   0F  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(30)
+CKCNTCSR                                3F  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(78)
+
+DCR0H                                   17  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(36)
+DCR0L                                   18  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(37)
+
+EICR1                                   37  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(53)
+EICR2                                   3D  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(70)
+
+FCSR                                    2F  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(42)
+
+LTCSR                                   0B  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(23)
+LTICR                                   0C  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(24)
+
+MUXCR0                                  47  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(83)
+MUXCR1                                  48  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(84)
+MCCSR                                   38  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(57)
+
+PADR                                    00  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(16)
+PADDR                                   01  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(17)
+PAOR                                    02  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(18)
+PWMCR                                   12  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(33)
+PWM0CSR                                 13  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(34)
+
+RCCR                                    39  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(61)
+
+SICSR                                   3A  BYTE  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm(65)
+
+temp                                  0080  WORD  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm(13)
+temp2                                 0081  WORD  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm(15)
+tempo                                 0082  WORD  c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\pisca_led.asm(17)
+
+
+32 labels

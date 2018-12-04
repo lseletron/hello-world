@@ -1,0 +1,47 @@
+000232;00033;
+'CONSTANTS' 
+
+'ram0' D
+    0080 temp
+    0081 temp2
+    0082 tempo
+
+'stack' V
+
+'rom' C
+
+'vectit' V
+
+'vectors' S
+
+'periph' D
+      47 MUXCR0
+      48 MUXCR1
+      00 PADR
+      01 PADDR
+      02 PAOR
+      0D ATCSR
+      10 ATRH
+      11 ATRL
+      34 ADCCSR
+      35 ADCDRH
+      36 ADCDRL
+      3E AVDTHCR
+      49 AWUPR
+      4A AWUCSR
+      0E CNTRH
+      0F CNTRL
+      3F CKCNTCSR
+      17 DCR0H
+      18 DCR0L
+      37 EICR1
+      3D EICR2
+      2F FCSR
+      0B LTCSR
+      0C LTICR
+      38 MCCSR
+      12 PWMCR
+      13 PWM0CSR
+      39 RCCR
+      3A SICSR
+

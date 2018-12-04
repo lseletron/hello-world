@@ -1,0 +1,63 @@
+[DebugState_v1-Debug.AddOn.ST7LoadSaveConfiguration]
+RestoreSP_Control=1
+[DebugState_v1-Debug.DebugContext]
+DumpRWOnFly=0
+WatchVariables1=
+FormatWatch1=0
+FormatViewType1=1
+FormatViewAddress1=1
+WatchRWOnFlyTab1=0
+WatchVariables2=
+FormatWatch2=0
+FormatViewType2=1
+FormatViewAddress2=1
+WatchRWOnFlyTab2=0
+WatchVariables3=
+FormatWatch3=0
+FormatViewType3=1
+FormatViewAddress3=1
+WatchRWOnFlyTab3=0
+WatchVariables4=
+FormatWatch4=0
+FormatViewType4=1
+FormatViewAddress4=1
+WatchRWOnFlyTab4=0
+FormatLocals=0
+FormatParameters=0
+[DebugState_v1-Debug.AddOn.St7Watchpoint]
+NbDataBreakpoint=0
+[DebugState_v1-Debug.AddOn.St7Registers]
+ActiveTab=1
+HexaTimeDisplay=1
+HexaInstrTimeDisplay=1
+[DebugState_v1-Debug.AddOn.St7PeripheralRegister]
+DisplayFormat=1
+ShowPeriphAddress=0
+ShowRegisterAddress=1
+[DebugState_v1-Debug.AddOn.St7McuOptionsMemMap]
+McuName=ST7FLITEUS5
+CurrentEmuTypeAndName=ST7 simulator
+NbMcuOption=6
+McuOption0=gdi mcuoption -set Vdd 5.0V
+McuOption1=gdi mcuoption -set Fosc 16MHz
+McuOption2=gdi mcuoption -set INTERRUPT CONCURRENT
+McuOption3=gdi mcuoption -set WATCHDOG SOFTWARE
+McuOption4=gdi mcuoption -set WDG_HALT RESET
+McuOption5=gdi mcuoption -set IRQ_SENSITIVITY RISING_AND_FALLING_EDGE
+NbRange=8
+Range0=mcumap -set [0x0000-0x007f]:"PERIPHERALS"
+Range1=mcumap -set [0x0080-0x00bf]:"RAM"
+Range2=mcumap -set [0x00c0-0x00ff]:"STACK"
+Range3=mcumap -set [0x0100-0xdedf]:"RESERVED"
+Range4=mcumap -set [0xdee0-0xdee3]:"ROM"
+Range5=mcumap -set [0xdee4-0xfbff]:"RESERVED"
+Range6=mcumap -set [0xfc00-0xffdf]:"ROM"
+Range7=mcumap -set [0xffe0-0xffff]:"VECTORS"
+[DebugState_v1-Debug.AddOn.St7StackPtrControl]
+SP_Ctrl_Enable=
+SP_Ctrl_OverFlow=
+[DebugState_v1-Debug.AddOn.Plotter]
+data=504103000000000000006C
+xml_checksum=189
+[DebugState_v1-Debug.AddOn.SteppingMode]
+Mode=hardware

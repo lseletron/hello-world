@@ -1,0 +1,185 @@
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 1  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm
+
+   1                             st7/      
+   2                             
+   3                             ; ST7FLITEUS5.asm
+   4                             
+   5                             ; Copyright (c) 2003-2007 STMicroelectronics
+   6                             
+   7                             ; ST7FLITEUS5
+   8                             
+   9  0000                                 BYTES                  ; following addresses are 8-bit 
+                                                                  ;length
+  10                             
+  11                                       segment  byte at 0-7F 'periph'
+  12                             
+  13                             
+  14                             ; Port A at 0x00
+  15                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  16  0000                       .PADR     DS.B     1             ; Data Register
+  17  0001                       .PADDR    DS.B     1             ; Data Direction Register
+  18  0002                       .PAOR     DS.B     1             ; Option Register
+  19  0003                       reserved1  DS.B     8             ; unused
+  20                             
+  21                             ; Lite Timer at 0x0b
+  22                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  23  000B                       .LTCSR    DS.B     1             ; Lite Timer Control/Status 
+                                                                  ;Register
+  24  000C                       .LTICR    DS.B     1             ; Lite Timer Input Capture 
+                                                                  ;Register
+  25                             
+  26                             ; Auto Reload Timer at 0x0d
+  27                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  28  000D                       .ATCSR    DS.B     1             ; Timer Control/Status 
+                                                                  ;Register1
+  29  000E                       .CNTRH    DS.B     1             ; Counter Value High
+  30  000F                       .CNTRL    DS.B     1             ; Counter Value Low
+  31  0010                       .ATRH     DS.B     1             ; Autoreload Register High
+  32  0011                       .ATRL     DS.B     1             ; Autoreload Register Low
+  33  0012                       .PWMCR    DS.B     1             ; PWM Output Control Register
+  34  0013                       .PWM0CSR  DS.B     1             ; PWM 0 Control/Status Register
+  35  0014                       reserved2  DS.B     3             ; unused
+  36  0017                       .DCR0H    DS.B     1             ; PWM0 Duty Cycle Value High
+  37  0018                       .DCR0L    DS.B     1             ; PWM0 Duty Cycle Value Low
+  38  0019                       reserved3  DS.B     22            ; unused
+  39                             
+  40                             ; Flash at 0x2f
+  41                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  42  002F                       .FCSR     DS.B     1             ; Flash Control/Status Register
+  43  0030                       reserved4  DS.B     4             ; unused
+  44                             
+  45                             ; 10-Bit A/D Converter (ADC) at 0x34
+  46                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  47  0034                       .ADCCSR   DS.B     1             ; ADC Control/Status Register
+  48  0035                       .ADCDRH   DS.B     1             ; Data Register High
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 2  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm
+
+  49  0036                       .ADCDRL   DS.B     1             ; Data Register Low
+  50                             
+  51                             ; External Interrupt Control Register 1 (ITC1) at 0x37
+  52                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  53  0037                       .EICR1    DS.B     1             ; External Interrupt Control 
+                                                                  ;Register 1
+  54                             
+  55                             ; Main Clock Control/Status Register (MCC) at 0x38
+  56                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  57  0038                       .MCCSR    DS.B     1             ; Main Clock Control/Status 
+                                                                  ;Register
+  58                             
+  59                             ; RC Oscillator Control Register (RCCR) at 0x39
+  60                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  61  0039                       .RCCR     DS.B     1             ; RC Control Register
+  62                             
+  63                             ; System Integrity Control/Status Register (SICSR) at 0x3a
+  64                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  65  003A                       .SICSR    DS.B     1             ; System Integrity 
+                                                                  ;Control/Status Register
+  66  003B                       reserved5  DS.B     2             ; unused
+  67                             
+  68                             ; External Interrupt Control Register 2 (ITC2) at 0x3d
+  69                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  70  003D                       .EICR2    DS.B     1             ; External Interrupt Control 
+                                                                  ;Register 2
+  71                             
+  72                             ; AVD Threshold Selection Register (AVDTHCR) at 0x3e
+  73                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  74  003E                       .AVDTHCR  DS.B     1             ; AVD Threshold Selection 
+                                                                  ;Register
+  75                             
+  76                             ; Clock Controller Control/Status (CKCNTCSR) at 0x3f
+  77                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  78  003F                       .CKCNTCSR  DS.B     1             ; Clock Controller 
+                                                                  ;Control/Status Register
+  79  0040                       reserved6  DS.B     7             ; unused
+  80                             
+  81                             ; Multiplexed IO Reset Control Register (MUXCR) at 0x47
+  82                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  83  0047                       .MUXCR0   DS.B     1             ; Multiplexed IO Reset Register 
+                                                                  ;Low
+  84  0048                       .MUXCR1   DS.B     1             ; Multiplexed IO Reset Register 
+                                                                  ;High
+  85                             
+  86                             ; Auto Wake Up from Halt Mode (AWU) at 0x49
+  87                             ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                 ;;;;;;
+  88  0049                       .AWUPR    DS.B     1             ; AWU HALT prescaler Register
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 3  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm
+
+  89  004A                       .AWUCSR   DS.B     1             ; AWU HALT Control/Status 
+                                                                  ;Register
+  90                             
+  91  004B                                 end      
+STMicroelectronics assembler v4.49   (C)1987-2008   Fri Feb 01 17:48:15 2008
+Page 4  Assembler
+                                               c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm
+
+Symbol Name                       Value     Call       Type  Scope      Rel.  Line  Privacy  Segment   Size  Bytes File
+
+ATCSR                                   0D         no  BYTE  Internal   ABS     28  public   bss          1     1  -
+ATRH                                    10         no  BYTE  Internal   ABS     31  public   bss          1     1  -
+ATRL                                    11         no  BYTE  Internal   ABS     32  public   bss          1     1  -
+ADCCSR                                  34         no  BYTE  Internal   ABS     47  public   bss          1     1  -
+ADCDRH                                  35         no  BYTE  Internal   ABS     48  public   bss          1     1  -
+ADCDRL                                  36         no  BYTE  Internal   ABS     49  public   bss          1     1  -
+AVDTHCR                                 3E         no  BYTE  Internal   ABS     74  public   bss          1     1  -
+AWUPR                                   49         no  BYTE  Internal   ABS     88  public   bss          1     1  -
+AWUCSR                                  4A         no  BYTE  Internal   ABS     89  public   bss          1     1  -
+
+CNTRH                                   0E         no  BYTE  Internal   ABS     29  public   bss          1     1  -
+CNTRL                                   0F         no  BYTE  Internal   ABS     30  public   bss          1     1  -
+CKCNTCSR                                3F         no  BYTE  Internal   ABS     78  public   bss          1     1  -
+
+DCR0H                                   17         no  BYTE  Internal   ABS     36  public   bss          1     1  -
+DCR0L                                   18         no  BYTE  Internal   ABS     37  public   bss          1     1  -
+
+EICR1                                   37         no  BYTE  Internal   ABS     53  public   bss          1     1  -
+EICR2                                   3D         no  BYTE  Internal   ABS     70  public   bss          1     1  -
+
+FCSR                                    2F         no  BYTE  Internal   ABS     42  public   bss          1     1  -
+
+LTCSR                                   0B         no  BYTE  Internal   ABS     23  public   bss          1     1  -
+LTICR                                   0C         no  BYTE  Internal   ABS     24  public   bss          1     1  -
+
+MCCSR                                   38         no  BYTE  Internal   ABS     57  public   bss          1     1  -
+MUXCR0                                  47         no  BYTE  Internal   ABS     83  public   bss          1     1  -
+MUXCR1                                  48         no  BYTE  Internal   ABS     84  public   bss          1     1  -
+
+PADR                                    00         no  BYTE  Internal   ABS     16  public   bss          1     1  -
+PADDR                                   01         no  BYTE  Internal   ABS     17  public   bss          1     1  -
+PAOR                                    02         no  BYTE  Internal   ABS     18  public   bss          1     1  -
+PWMCR                                   12         no  BYTE  Internal   ABS     33  public   bss          1     1  -
+PWM0CSR                                 13         no  BYTE  Internal   ABS     34  public   bss          1     1  -
+
+RCCR                                    39         no  BYTE  Internal   ABS     61  public   bss          1     1  -
+
+SICSR                                   3A         no  BYTE  Internal   ABS     65  public   bss          1     1  -
+
+reserved1                               03         no  BYTE  Internal   ABS     19  private  bss          8     1  -
+reserved2                               14         no  BYTE  Internal   ABS     35  private  bss          3     1  -
+reserved3                               19         no  BYTE  Internal   ABS     38  private  bss         22     1  -
+reserved4                               30         no  BYTE  Internal   ABS     43  private  bss          4     1  -
+reserved5                               3B         no  BYTE  Internal   ABS     66  private  bss          2     1  -
+reserved6                               40         no  BYTE  Internal   ABS     79  private  bss          7     1  -
+
+
+35 labels
+No errors on assembly of 'c:\documents and settings\luciano silva\meus documentos\soniclear\st7\pisca\st7fliteus5.asm'
